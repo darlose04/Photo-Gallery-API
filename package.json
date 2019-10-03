@@ -1,0 +1,33 @@
+{
+  "name": "photoapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env node index.js",
+    "watch": "cross-env nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darlose04/Photo-Gallery-API.git"
+  },
+  "author": "Zach Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darlose04/Photo-Gallery-API/issues"
+  },
+  "homepage": "https://github.com/darlose04/Photo-Gallery-API#readme",
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  }
+}
