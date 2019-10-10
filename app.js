@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.json());
 
 // Routes
-app.use("/", require("./controllers/index"));
+// app.use("/", require("./controllers/index"));
 app.use("/users", require("./controllers/users"));
 
 module.exports = app;
