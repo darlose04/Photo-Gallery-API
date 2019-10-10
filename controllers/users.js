@@ -61,10 +61,20 @@ router.post("/register", (req, res) => {
           password
         });
 
-        newUser.save();
+        // hash password
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
 
-        console.log(newUser);
-        res.send("hello");
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => {
+                res.redirect("/users/login");
+              })
+              .catch(err => console.log(err));
+          });
+        });
       }
     });
   }
