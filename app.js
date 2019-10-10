@@ -4,8 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const config = require("./utils/config");
-// const imagesRouter = require("./controllers/images");
-// const photos = require("./photos");
+const expressLayouts = require("express-ejs-layouts");
+
+// EJS
+app.use(expressLayouts);
+app.set("view engine", "ejs");
 
 // app.use(cors);
 app.use(bodyParser.json());
