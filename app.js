@@ -6,6 +6,15 @@ const mongoose = require("mongoose");
 const config = require("./utils/config");
 const expressLayouts = require("express-ejs-layouts");
 
+mongoose
+  .connect(config.MONGODB_URI, { useNewUrlParser: true })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch(error => {
+    console.error("Error connecting to MongoDB: ", error);
+  });
+
 // EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
