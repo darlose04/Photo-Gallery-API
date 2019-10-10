@@ -7,7 +7,10 @@ const config = require("./utils/config");
 const expressLayouts = require("express-ejs-layouts");
 
 mongoose
-  .connect(config.MONGODB_URI, { useNewUrlParser: true })
+  .connect(config.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
     console.log("Connected to MongoDB");
   })
