@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const config = require("./utils/config");
@@ -22,8 +22,10 @@ mongoose
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 
+app.use(express.urlencoded({ extended: false }));
+
 // app.use(cors);
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 // Routes
 // app.use("/", require("./controllers/index"));
