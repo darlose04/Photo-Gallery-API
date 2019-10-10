@@ -7,7 +7,6 @@ router.get("/login", (req, res) => {
 });
 
 // register
-// login page
 router.get("/register", (req, res) => {
   res.render("register");
 });
