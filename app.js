@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const config = require("./utils/config");
 const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
-const session = require("express-sessions");
+const session = require("express-session");
 
 mongoose
   .connect(config.MONGODB_URI, {
@@ -35,7 +35,6 @@ app.use(
     saveUninitialized: true
   })
 );
-
 // connect flash
 app.use(flash());
 
