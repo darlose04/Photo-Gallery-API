@@ -6,9 +6,9 @@ const api = supertest(app);
 
 // require schema here
 
-// test("landing page at root route is returned successfully", async () => {
-//   await api.get("/").expect(200);
-// });
+test("landing page at root route is returned successfully", async () => {
+  await api.get("/").expect(200);
+});
 
 test("login page returned successfully", async () => {
   await api.get("/users/login").expect(200);
