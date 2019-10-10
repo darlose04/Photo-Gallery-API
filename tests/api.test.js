@@ -13,3 +13,9 @@ test("landing page at root route is returned successfully", async () => {
 test("login page returned successfully", async () => {
   await api.get("/users/login").expect(200);
 });
+
+test("register page returned successfully", async () => {
+  await api.get("/users/register").expect(200);
+});
+
+// mongoose.connection.close();
