@@ -10,8 +10,8 @@ const config = require("./utils/config");
 // app.use(cors);
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.send("<h1>Landing Page</h1>");
-});
+// Routes
+app.use("/", require("./controllers/index"));
+app.use("/users", require("./controllers/users"));
 
 module.exports = app;
