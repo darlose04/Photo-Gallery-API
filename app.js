@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
 // Routes
-// app.use("/", require("./controllers/index"));
+app.use("/", require("./controllers/index"));
 app.use("/users", require("./controllers/users"));
 
 module.exports = app;
