@@ -18,6 +18,11 @@ router.get("/register", (req, res) => {
 router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
+  console.log(User.length);
+
+  if (User.length > 0) {
+    errors.push({ msg: "You are not authorized to register" });
+  }
 
   // check required fields
   if (!name || !email || !password || !password2) {
@@ -34,7 +39,7 @@ router.post("/register", (req, res) => {
     errors.push({ msg: "Password needs to be at least 6 characters" });
   }
 
-  if (errors.length > 0) {
+  if (errors.length > 0 && User.length > 0) {
     res.render("register", {
       errors,
       name,
@@ -42,9 +47,6 @@ router.post("/register", (req, res) => {
       password,
       password2
     });
-  } else if (User.length === 1) {
-    errors.push({ msg: "You are not authorized to register" });
-    res.redirect("/users/register");
   } else {
     // Validation passed
     User.findOne({ email: email }).then(user => {
