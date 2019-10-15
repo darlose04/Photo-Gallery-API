@@ -7,6 +7,10 @@ const config = require("./utils/config");
 const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
+const passport = require("passport");
+
+// passport config
+require("./utils/passport")(passport);
 
 mongoose
   .connect(config.MONGODB_URI, {
@@ -35,6 +39,11 @@ app.use(
     saveUninitialized: true
   })
 );
+
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // connect flash
 app.use(flash());
 
