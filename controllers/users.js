@@ -42,6 +42,9 @@ router.post("/register", (req, res) => {
       password,
       password2
     });
+  } else if (User.length === 1) {
+    errors.push({ msg: "You are not authorized to register" });
+    res.redirect("/users/register");
   } else {
     // Validation passed
     User.findOne({ email: email }).then(user => {
