@@ -5,30 +5,66 @@ const api = supertest(app);
 const helper = require("./helper");
 const User = require("../models/User");
 
-// beforeEach(async () => {
-//   await User.deleteMany({});
+describe("testing users in the db", () => {
+  beforeEach(async () => {
+    await User.deleteMany({});
+    const user = new User({
+      name: "John Doe",
+      email: "jdoe@gmail.com",
+      password: "123456"
+    });
+    await user.save();
+  });
 
-//   const userObjects = helper.
-// })
+  test("number of users in the db", async () => {
+    const numOfUsers = await helper.usersInDb();
 
-test("landing page at root route is returned successfully", async () => {
-  await api.get("/").expect(200);
+    expect(numOfUsers.length).toBe(1);
+    expect();
+  });
+
+  test("creating a new user", async () => {
+    await User.deleteMany({});
+    const usersAtStart = await helper.usersInDb();
+
+    const newUser = new User({
+      name: "Joe",
+      email: "joe@gmail.com",
+      password: "abcdef"
+    });
+
+    await newUser.save();
+
+    const usersAtEnd = await helper.usersInDb();
+    expect(usersAtEnd.length).toBe(usersAtStart.length + 1);
+
+    const emails = usersAtEnd.map(user => user.email);
+    expect(emails).toContain(newUser.email);
+  });
 });
 
-test("dashboard page returned successfully", async () => {
-  await api.get("/dashboard").expect(302);
+describe("check that routes are returning as expected", () => {
+  test("landing page at root route is returned successfully", async () => {
+    await api.get("/").expect(200);
+  });
+
+  test("dashboard page returned successfully", async () => {
+    await api.get("/dashboard").expect(302);
+  });
+
+  test("login page returned successfully", async () => {
+    await api.get("/users/login").expect(200);
+  });
+
+  test("register page returned successfully", async () => {
+    await api.get("/users/register").expect(200);
+  });
+
+  test("logout page is found or returned successfully", async () => {
+    await api.get("/users/logout").expect(302);
+  });
 });
 
-test("login page returned successfully", async () => {
-  await api.get("/users/login").expect(200);
+afterAll(() => {
+  mongoose.connection.close();
 });
-
-test("register page returned successfully", async () => {
-  await api.get("/users/register").expect(200);
-});
-
-test("logout page is found or returned successfully", async () => {
-  await api.get("/users/logout").expect(302);
-});
-
-// mongoose.connection.close();
