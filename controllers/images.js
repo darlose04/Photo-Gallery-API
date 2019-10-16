@@ -77,4 +77,19 @@ router.post(
   }
 );
 
+// get files
+router.get("/files", ensureAuthenticated, (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    // check if files exist
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        err: "No Files Exist"
+      });
+    }
+
+    // files exist
+    return res.json(files);
+  });
+});
+
 module.exports = router;
