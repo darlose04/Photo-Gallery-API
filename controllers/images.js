@@ -49,7 +49,7 @@ router.get("/", ensureAuthenticated, (req, res) => {
   gfs.files.find().toArray((err, files) => {
     // check if files exist
     if (!files || files.length === 0) {
-      res.render("index", { files: false });
+      res.render("images", { files: false });
     } else {
       files.map(file => {
         if (
@@ -62,7 +62,7 @@ router.get("/", ensureAuthenticated, (req, res) => {
         }
       });
 
-      res.render("index", { files: files });
+      res.render("images", { files: files });
     }
   });
 });
