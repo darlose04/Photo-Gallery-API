@@ -45,7 +45,7 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 // load forms
-router.get("/", (req, res) => {
+router.get("/", ensureAuthenticated, (req, res) => {
   gfs.files.find().toArray((err, files) => {
     // check if files exist
     if (!files || files.length === 0) {
@@ -66,5 +66,15 @@ router.get("/", (req, res) => {
     }
   });
 });
+
+// upload images
+router.post(
+  "/upload",
+  ensureAuthenticated,
+  upload.single("file"),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 
 module.exports = router;
