@@ -106,4 +106,26 @@ router.get("/files/:filename", ensureAuthenticated, (req, res) => {
   });
 });
 
+// display image
+router.get("/image/:filename", ensureAuthenticated, (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: "No File Exists"
+      });
+    }
+
+    // check if image
+    if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
+      // read output to the browser
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        err: "Not an image"
+      });
+    }
+  });
+});
+
 module.exports = router;
