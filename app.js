@@ -60,5 +60,6 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", require("./controllers/index"));
 app.use("/users", require("./controllers/users"));
+app.use("/images", require("./controllers/images"));
 
 module.exports = app;
