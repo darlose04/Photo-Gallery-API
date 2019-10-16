@@ -92,4 +92,18 @@ router.get("/files", ensureAuthenticated, (req, res) => {
   });
 });
 
+// get single file
+router.get("/files/:filename", ensureAuthenticated, (req, res) => {
+  // find files
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: "No File Exists"
+      });
+    }
+
+    return res.json(file);
+  });
+});
+
 module.exports = router;
