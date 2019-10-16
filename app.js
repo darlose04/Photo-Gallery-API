@@ -8,6 +8,7 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const methodOverride = require("method-override");
 
 // passport config
 require("./utils/passport")(passport);
@@ -30,6 +31,7 @@ app.set("view engine", "ejs");
 
 // body parser
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
 
 // express session
 app.use(
@@ -60,6 +62,6 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", require("./controllers/index"));
 app.use("/users", require("./controllers/users"));
-app.use("/images", require("./controllers/images"));
+// app.use("/images", require("./controllers/images"));
 
 module.exports = app;
