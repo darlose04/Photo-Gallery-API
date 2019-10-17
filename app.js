@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 // const bodyParser = require("body-parser");
-const cors = require("cors");
+// const cors = require("cors");
 const mongoose = require("mongoose");
 const config = require("./utils/config");
 const expressLayouts = require("express-ejs-layouts");
@@ -56,8 +56,6 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
-
-// app.use(cors);
 
 // Routes
 app.use("/", require("./controllers/index"));
