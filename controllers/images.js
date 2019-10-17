@@ -67,7 +67,20 @@ router.get("/", ensureAuthenticated, (req, res) => {
 
 // upload
 router.post("/upload", upload.single("file"), (req, res) => {
-  res.json({ file: req.file });
+  // res.json({ file: req.file });
+  res.redirect("/");
+});
+
+router.get("/files", ensureAuthenticated, (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        err: "No Files Exist"
+      });
+    }
+
+    return res.json(files);
+  });
 });
 
 module.exports = router;
