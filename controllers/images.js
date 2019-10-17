@@ -71,6 +71,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
   res.redirect("/");
 });
 
+// display files in json format
 router.get("/files", ensureAuthenticated, (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
@@ -83,6 +84,7 @@ router.get("/files", ensureAuthenticated, (req, res) => {
   });
 });
 
+// display single file in json
 router.get("/files/:filename", ensureAuthenticated, (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) {
@@ -92,6 +94,25 @@ router.get("/files/:filename", ensureAuthenticated, (req, res) => {
     }
 
     return res.json(file);
+  });
+});
+
+router.get("/image/:filename", ensureAuthenticated, (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({
+        err: "No File Exists"
+      });
+    }
+
+    if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        err: "Not an image"
+      });
+    }
   });
 });
 
