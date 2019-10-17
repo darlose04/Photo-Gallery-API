@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const passport = require("passport");
+const config = require("../utils/config");
 
 // login page
 router.get("/login", (req, res) => {
@@ -19,13 +20,17 @@ router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
 
-  if (User.length > 0) {
+  if (email !== config.EMAIL) {
     errors.push({ msg: "You are not authorized to register" });
   }
 
   // check required fields
   if (!name || !email || !password || !password2) {
     errors.push({ msg: "Please fill in all fields" });
+  }
+
+  if (password !== config.PASSWORD) {
+    errors.push({ msg: "You are not authorized to register" });
   }
 
   // check that passwords match
@@ -38,7 +43,7 @@ router.post("/register", (req, res) => {
     errors.push({ msg: "Password needs to be at least 6 characters" });
   }
 
-  if (errors.length > 0 && User.length > 0) {
+  if (errors.length > 0) {
     res.render("register", {
       errors,
       name,
