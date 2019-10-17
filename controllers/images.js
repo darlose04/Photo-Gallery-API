@@ -68,7 +68,7 @@ router.get("/", ensureAuthenticated, (req, res) => {
 // upload
 router.post("/upload", upload.single("file"), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect("/");
+  res.redirect("/images");
 });
 
 // display files in json format
@@ -118,7 +118,7 @@ router.get("/image/:filename", ensureAuthenticated, (req, res) => {
 });
 
 // delete file
-router.delete("/files/:id", (req, res) => {
+router.delete("/files/:id", ensureAuthenticated, (req, res) => {
   gfs.remove({ _id: req.params.id, root: "uploads" }, (err, gridStore) => {
     if (err) {
       return res.status(404).json({
@@ -126,7 +126,7 @@ router.delete("/files/:id", (req, res) => {
       });
     }
 
-    res.redirect("/");
+    res.redirect("/images");
   });
 });
 
