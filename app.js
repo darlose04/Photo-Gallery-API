@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const methodOverride = require("method-override");
+const cors = require("cors");
 
 // passport config
 require("./utils/passport")(passport);
@@ -28,6 +29,8 @@ mongoose
 // EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
+
+app.use(cors());
 
 // body parser
 app.use(express.urlencoded({ extended: false }));
