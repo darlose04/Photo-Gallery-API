@@ -9,17 +9,25 @@
       <input type="submit" value="Submit" class="btn btn-primary btn-block" />
     </form>
     <hr />
-    <% if (files) { %> <% files.forEach(function(file) { %>
-    <div class="card card-body mb-3">
-      <% if (file.isImage) { %>
-      <img src="images/image/<%= file.filename %>" alt="" />
-      <% } else { %> <%= file.filename %> <% } %>
-      <form action="/images/files/<%= file._id %>?_method=DELETE" method="POST">
-        <button class="btn btn-danger btn-block mt-4">Delete</button>
-      </form>
-    </div>
-    <% }) %> <% } else { %>
-    <p>No Files to Show</p>
-    <% } %>
+    
   </div>
+  <div class="container">
+    <div class="row">
+      <% if (files) { %> <% files.forEach(function(file) { %>
+        <div class="col-sm-4">
+          <div class="card card-body mb-3">
+            <% if (file.isImage) { %>
+            <img src="images/image/<%= file.filename %>" alt="" />
+            <% } else { %> <%= file.filename %> <% } %>
+            <form action="/images/files/<%= file._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-danger btn-block mt-4">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+   <% } else { %>
+  <p>No Files to Show</p>
+  <% } %>
 </div>
