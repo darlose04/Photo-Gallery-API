@@ -72,7 +72,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // display files in json format
-router.get("/files", ensureAuthenticated, (req, res) => {
+router.get("/files", (req, res) => {
   gfs.files.find().toArray((err, files) => {
     if (!files || files.length === 0) {
       return res.status(404).json({
@@ -85,20 +85,20 @@ router.get("/files", ensureAuthenticated, (req, res) => {
 });
 
 // display single file in json
-router.get("/files/:filename", ensureAuthenticated, (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: "No File Exists"
-      });
-    }
+// router.get("/files/:filename", ensureAuthenticated, (req, res) => {
+//   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+//     if (!file || file.length === 0) {
+//       return res.status(404).json({
+//         err: "No File Exists"
+//       });
+//     }
 
-    return res.json(file);
-  });
-});
+//     return res.json(file);
+//   });
+// });
 
 // display single image
-router.get("/image/:filename", ensureAuthenticated, (req, res) => {
+router.get("/image/:filename", (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) {
       return res.status(404).json({
