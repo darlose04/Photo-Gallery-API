@@ -79,25 +79,25 @@ router.post("/upload", upload.single("file"), (req, res) => {
 
   newImage.save();
 
-  // res.json({
-  //   file: req.file,
-  //   title: req.body.title,
-  //   width: req.body.width,
-  //   height: req.body.height
-  // });
   res.redirect("/images");
 });
 
 // display files in json format
 router.get("/files", (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    if (!files || files.length === 0) {
+  // gfs.files.find().toArray((err, files) => {
+  //   if (!files || files.length === 0) {
+  //     return res.status(404).json({
+  //       err: "No Files Exist"
+  //     });
+  //   }
+
+  Image.find((err, images) => {
+    if (!images || images.length === 0) {
       return res.status(404).json({
-        err: "No Files Exist"
+        err: "No files exist"
       });
     }
-
-    return res.json(files);
+    return res.json(images);
   });
 });
 
