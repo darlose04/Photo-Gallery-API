@@ -8,6 +8,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const { ensureAuthenticated } = require("../utils/auth");
 const config = require("../utils/config");
+const Image = require("../models/Image");
 
 const conn = mongoose.createConnection(config.IMAGE_URI, {
   useNewUrlParser: true,
@@ -67,7 +68,23 @@ router.get("/", ensureAuthenticated, (req, res) => {
 
 // upload
 router.post("/upload", upload.single("file"), (req, res) => {
-  // res.json({ file: req.file });
+  const { title, width, height } = req.body;
+
+  const newImage = new Image({
+    file: req.file,
+    title,
+    width,
+    height
+  });
+
+  newImage.save();
+
+  // res.json({
+  //   file: req.file,
+  //   title: req.body.title,
+  //   width: req.body.width,
+  //   height: req.body.height
+  // });
   res.redirect("/images");
 });
 

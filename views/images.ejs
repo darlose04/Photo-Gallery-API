@@ -1,54 +1,65 @@
 <div class="row">
   <div class="col-md-6 m-auto">
     <h1 class="text-center display-4 my-4">File Upload</h1>
+    <div class="alert alert-danger" role="alert">
+      NOTE!
+      <ul>
+        <li>
+          If the photo is landscape oriented, enter a width of 4 and a height of
+          3.
+        </li>
+        <li>
+          If the photo is portrait oriented, enter a width of 3 and a height of
+          4 or 5.
+        </li>
+        <li>
+          Once the photo is uploaded, check the photo gallery on the portfolio
+          site to make sure any portrait oriented photos don't look weird. If
+          so, come back here, delete the photo, then reupload it and change the
+          dimensions.
+        </li>
+      </ul>
+    </div>
     <form action="/images/upload" method="POST" enctype="multipart/form-data">
-      <div class="custom-file mb-3">
-        <input type="file" name="file" id="file" class="custom-file-input" />
+      <div class="custom-file mb-3 form-group">
+        <input
+          type="file"
+          name="file"
+          id="file"
+          class="custom-file-input mb-2"
+        />
         <label for="file" class="custom-file-label">Choose File</label>
-      </div>
-      <div class="form-group">
         <label for="title">Photo Title</label>
         <input
           class="form-control mb-2"
           type="text"
+          name="title"
           id="title"
           placeholder="Enter photo title"
         />
-        <div class="alert alert-danger" role="alert">
-          NOTE!
-          <ul>
-            <li>
-              If the photo is landscape oriented, enter a width of 4 and a
-              height of 3.
-            </li>
-            <li>
-              If the photo is portrait oriented, enter a width of 3 and a height
-              of 4 or 5.
-            </li>
-            <li>
-              Once the photo is uploaded, check the photo gallery on the
-              portfolio site to make sure any portrait oriented photos don't
-              look weird. If so, come back here, delete the photo, then reupload
-              it and change the dimensions.
-            </li>
-          </ul>
-        </div>
+
         <label for="width">Photo Width</label>
         <input
           class="form-control mb-2"
           type="number"
+          name="width"
           id="width"
           placeholder="Enter photo width"
         />
         <label for="height">Photo Height</label>
         <input
-          class="form-control"
+          class="form-control mb-2"
+          name="height"
           type="number"
           id="height"
           placeholder="Enter photo height"
         />
+        <input
+          type="submit"
+          value="Submit"
+          class="btn btn-primary btn-block mt-4"
+        />
       </div>
-      <input type="submit" value="Submit" class="btn btn-primary btn-block" />
     </form>
     <hr />
   </div>
