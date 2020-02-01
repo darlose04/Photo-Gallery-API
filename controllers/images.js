@@ -83,7 +83,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // display files in json format
-router.get("/files", (req, res) => {
+router.get("/files", ensureAuthenticated, (req, res) => {
   // gfs.files.find().toArray((err, files) => {
   //   if (!files || files.length === 0) {
   //     return res.status(404).json({
@@ -115,7 +115,7 @@ router.get("/files", (req, res) => {
 // });
 
 // display single image
-router.get("/image/:filename", (req, res) => {
+router.get("/image/:filename", ensureAuthenticated, (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) {
       return res.status(404).json({
