@@ -101,19 +101,6 @@ router.get("/files", (req, res) => {
   });
 });
 
-// display single file in json
-// router.get("/files/:filename", ensureAuthenticated, (req, res) => {
-//   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-//     if (!file || file.length === 0) {
-//       return res.status(404).json({
-//         err: "No File Exists"
-//       });
-//     }
-
-//     return res.json(file);
-//   });
-// });
-
 // display single image
 router.get("/image/:filename", (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
