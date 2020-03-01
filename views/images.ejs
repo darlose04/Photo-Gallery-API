@@ -72,10 +72,7 @@
           <img src="images/image/<%= file.filename %>" alt="" />
           <h5 class="card-title"><%= file.filename %></h5>
           <% } else { %> <%= file.filename %> <% } %>
-          <form
-            action="/images/files/<%= file._id %>?_method=DELETE"
-            method="POST"
-          >
+          <form action="/images/files/<%= _id %>?_method=DELETE" method="POST">
             <button class="btn btn-danger btn-block mt-4">Delete</button>
           </form>
         </div>
