@@ -76,7 +76,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
     width,
     height
   });
-
+  console.log(newImage);
   newImage.save();
 
   res.redirect("/images");
@@ -132,6 +132,16 @@ router.delete("/files/:id", ensureAuthenticated, (req, res) => {
 
     res.redirect("/images");
   });
+
+  // Image.findOneAndDelete({ _id: req.params.id }, err => {
+  //   if (err) {
+  //     return res.status(404).json({
+  //       err: err
+  //     });
+  //   }
+  //   // res.redirect("/images");
+
+  // });
 });
 
 module.exports = router;
