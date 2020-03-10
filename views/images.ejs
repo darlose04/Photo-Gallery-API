@@ -65,15 +65,14 @@
   </div>
   <div class="container">
     <div class="row">
-      <% if (files) { %> <% files.forEach(function(file) { %>
+      <% images.forEach(function(image) { %>
       <div class="col-sm-4">
         <div class="card card-body mb-3">
-          <% if (file.isImage) { %>
-          <img src="images/image/<%= file.filename %>" alt="" />
-          <h5 class="card-title"><%= file.filename %></h5>
-          <% } else { %> <%= file.filename %> <% } %>
+          <img src="images/image/<%= image.file.filename %>" alt="" />
+          <h5 class="card-title"><%= image.file.filename %></h5>
+
           <form
-            action="/images/files/<%= file._id %>?_method=DELETE"
+            action="/images/files/<%= image._id %>?_method=DELETE"
             method="POST"
           >
             <button class="btn btn-danger btn-block mt-4">Delete</button>
@@ -83,7 +82,4 @@
       <% }) %>
     </div>
   </div>
-  <% } else { %>
-  <p>No Files to Show</p>
-  <% } %>
 </div>
