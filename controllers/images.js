@@ -46,23 +46,27 @@ const upload = multer({ storage });
 
 // loads form
 router.get("/", ensureAuthenticated, (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    if (!files || files.length === 0) {
-      res.render("images", { files: false });
-    } else {
-      files.map(file => {
-        if (
-          file.contentType === "image/jpeg" ||
-          file.contentType === "image/png"
-        ) {
-          file.isImage = true;
-        } else {
-          file.isImage = false;
-        }
-      });
+  // gfs.files.find().toArray((err, files) => {
+  //   if (!files || files.length === 0) {
+  //     res.render("images", { files: false });
+  //   } else {
+  //     files.map(file => {
+  //       if (
+  //         file.contentType === "image/jpeg" ||
+  //         file.contentType === "image/png"
+  //       ) {
+  //         file.isImage = true;
+  //       } else {
+  //         file.isImage = false;
+  //       }
+  //     });
+  //     res.render("images", { files: files });
+  //   }
+  // });
 
-      res.render("images", { files: files });
-    }
+  Image.find({}, (err, images) => {
+    // console.log(images);
+    res.render("images", { images });
   });
 });
 
@@ -76,7 +80,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
     width,
     height
   });
-  console.log(newImage);
+  // console.log(newImage);
   newImage.save();
 
   res.redirect("/images");
@@ -97,6 +101,7 @@ router.get("/files", (req, res) => {
         err: "No files exist"
       });
     }
+
     return res.json(images);
   });
 });
@@ -122,26 +127,28 @@ router.get("/image/:filename", (req, res) => {
 });
 
 // delete file
-router.delete("/files/:id", ensureAuthenticated, (req, res) => {
-  gfs.remove({ _id: req.params.id, root: "uploads" }, (err, gridStore) => {
-    if (err) {
-      return res.status(404).json({
-        err: err
-      });
-    }
-
-    res.redirect("/images");
+router.delete("/files/:id", ensureAuthenticated, async (req, res) => {
+  await Image.find((err, images) => {
+    images.map(image => {
+      if (image.id == req.params.id) {
+        gfs.remove(
+          { _id: image.file.id, root: "uploads" },
+          (err, gridStore) => {
+            if (err) {
+              return res.status(404).json({
+                err: err
+              });
+            }
+          }
+        );
+      }
+    });
   });
 
-  // Image.findOneAndDelete({ _id: req.params.id }, err => {
-  //   if (err) {
-  //     return res.status(404).json({
-  //       err: err
-  //     });
-  //   }
-  //   // res.redirect("/images");
-
-  // });
+  await Image.findByIdAndDelete(req.params.id, err => {
+    if (err) console.error(err);
+  });
+  res.redirect("/images");
 });
 
 module.exports = router;
